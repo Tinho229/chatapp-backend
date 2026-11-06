@@ -1,0 +1,31 @@
+{
+  "compilerOptions": {
+    "rootDir": ".",
+    "outDir": "./dist",
+
+    "module": "CommonJS",
+    "moduleResolution": "Bundler",
+    "target": "ES2022",
+
+   
+
+    "strict": true,
+    "esModuleInterop": true,
+    "verbatimModuleSyntax": false,
+
+    "sourceMap": true,
+    "declaration": false,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true
+  },
+  "ts-node": {
+  "files": true
+},
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.d.ts",
+    "server.ts",
+    "app.ts"
+  ],
+  "exclude": ["node_modules", "dist"]
+}
