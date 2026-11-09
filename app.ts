@@ -41,7 +41,6 @@ io.on('connection' , (socket) => {
             
         } catch (err) {
             console.error('Failed to save message:' , err);
-            
         }
         
     }) ;

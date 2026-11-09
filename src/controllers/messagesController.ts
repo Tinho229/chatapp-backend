@@ -8,10 +8,10 @@ export const fetchAllMessagesByConversationId = async (req : Request , res : Res
             const result = await pool.query( `
                 SELECT m.id , m.content, m.sender_id , m.conversation_id , m.created_at 
                 FROM messages m
-                WHERE m.conversation_id =$1`,
+                WHERE m.conversation_id =$1 ORDER BY m.created_at ASC `,
                  [conversationId]) ;
 
-            return res.json(result.rows)
+             return res.json(result.rows)
     } catch (error) {
         res.status(500).json({error : 'Failed to fetch messages'}) ;
     }
@@ -22,7 +22,7 @@ export const saveMessage = async (conversationId : string , senderId : string , 
 
     try {
             const result = await pool.query( `
-                INSERT INTO messages (conversation_id , sender_id , content VALUES($1 , $2 , $3) RETURNING *`,
+                INSERT INTO messages (conversation_id , sender_id , content) VALUES ($1 , $2 , $3) RETURNING *`,
                  [conversationId , senderId , content ]) ;
 
             return result.rows[0] ;

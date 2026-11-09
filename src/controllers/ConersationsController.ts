@@ -21,7 +21,7 @@ export const  fetchAllConversationsByUser  = async (req : Request , res : Respon
                     SELECT content, created_at FROM  messages WHERE conversation_id = c.id
                     ORDER BY created_at DESC
                     LIMIT 1) m ON true
-                WHERE c.participant_one =$1 OR c.participant_two =$1 ORDER BY m.created_at DESC`
+                WHERE c.participant_one =$1 OR c.participant_two =$1 ORDER BY m.created_at ASC`
              , [userId]) ;
 
              res.json(result.rows) ;
