@@ -17,13 +17,13 @@ export const fetchAllMessagesByConversationId = async (req : Request , res : Res
     }
 }
 
-export const saveMessge = async (conversationId : string , sendId : string , content : string) => {
+export const saveMessage = async (conversationId : string , senderId : string , content : string) => {
     
 
     try {
             const result = await pool.query( `
                 INSERT INTO messages (conversation_id , sender_id , content VALUES($1 , $2 , $3) RETURNING *`,
-                 [conversationId , sendId , content ]) ;
+                 [conversationId , senderId , content ]) ;
 
             return result.rows[0] ;
     } catch (err) {
