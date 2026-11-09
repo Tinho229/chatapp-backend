@@ -26,7 +26,8 @@ export const register = async (req: Request, res: Response) => {
             JWT_SECRET,
             { expiresIn: '10h' }
         );
-
+        
+        (req)
         return res.status(201).json({
             message: "User registered successfully",
             user: {

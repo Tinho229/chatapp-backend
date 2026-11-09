@@ -14,6 +14,7 @@ export const verifyToken = (req : Request , res : Response , next : NextFunction
 
     try {
         const decoded = jwt.verify(token , process.env.JWT_SECRET || "KpwFLooK0KCagRqklDtiomkzxzN2WcEyfBXKBo0a6U6") ;
+        req.user =decoded as {id : string} ;
         next() ;
     } catch (e) {
         res.status(401).json({error : 'Invalid Token'})
