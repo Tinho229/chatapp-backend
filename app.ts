@@ -38,6 +38,10 @@ io.on('connection' , (socket) => {
             console.log("Send Message :");
             console.log(savedMessage);
             io.to(conversationId).emit('newMessage' , savedMessage);
+
+            io.emit('conversationUpdated' , {
+                conversationId, lastMessage : savedMessage.content, lastMessageTime : savedMessage.created_at
+            }); 
             
         } catch (err) {
             console.error('Failed to save message:' , err);
