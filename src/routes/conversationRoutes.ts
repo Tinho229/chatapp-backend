@@ -1,6 +1,4 @@
-import { Request, Response, Router } from "express";
-
-import pool from "../config/database/db";
+import {  Router } from "express";
 import { verifyToken } from "../middlewares/authMiddleware";
 import { fetchAllConversationsByUser } from "../controllers/ConersationsController";
 
