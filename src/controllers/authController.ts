@@ -3,20 +3,26 @@ import bcrypt from "bcrypt" ;
 import pool from "../config/database/db";
 import jwt  from "jsonwebtoken";
 
+const randomImages = [
+    'https://www.unjourunhomme.com/userfiles/www.unjourunhomme.com/images/beau-visage-homme-coiffure.jpg',
+    'https://www.unjourunhomme.com/userfiles/www.unjourunhomme.com/images/beau-visage-homme-coiffure.jpg',
+    'https://www.unjourunhomme.com/userfiles/www.unjourunhomme.com/images/beau-visage-homme-coiffure.jpg',
+    'https://www.unjourunhomme.com/userfiles/www.unjourunhomme.com/images/beau-visage-homme-coiffure.jpg'
+] ;         
+
 const SALT_ROUNDS  = 10  ;
 const JWT_SECRET  = process.env.JWT_SECRET || "KpwFLooK0KCagRqklDtiomkzxzN2WcEyfBXKBo0a6U6" ;
 
 export const register = async (req: Request, res: Response) => {
     const { username, email, password } = req.body;
-
     try {
         const hashPassword = await bcrypt.hash(password, SALT_ROUNDS);
-
+        const randomImage : string = randomImages[Math.floor(Math.random()*randomImages.length)] ;
         const result = await pool.query(
             `INSERT INTO users (username, email, password)
-             VALUES ($1, $2, $3)
+             VALUES ($1, $2, $3 , $4)
              RETURNING id, username, email`,
-            [username, email, hashPassword]
+            [username, email, hashPassword , randomImage ]
         );
 
         const user = result.rows[0];
