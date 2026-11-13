@@ -64,3 +64,28 @@ export const checkOrCreatedConversation = async (req : Request , res : Response)
 
 
 }
+
+
+export const getDailyQuestion = async (req:Request , res : Response) => {
+    const conversationId = req.params.id ;
+    try {
+        const result = await pool.query(`SELECT m.content
+       FROM messages m
+       WHERE m.conversation_id = $1
+         AND m.sender_id = $2
+         
+       ORDER BY m.created_at DESC
+       LIMIT 1` , [conversationId , process.env.AI_BOT_ID  ]) ;
+            
+
+            if (result.rowCount === 0) {
+                return res.status(404).json({error : 'No daily question found'})
+            }
+
+            res.json({question : result.rows[0].content}) ;
+    } catch (error) {
+        console.error('Error fetching daily');
+        res.status(500).json({error : 'Failed to fetch daily questions'})
+        
+    }
+}
