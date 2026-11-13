@@ -19,7 +19,7 @@ export const register = async (req: Request, res: Response) => {
         const hashPassword = await bcrypt.hash(password, SALT_ROUNDS);
         const randomImage : string = randomImages[Math.floor(Math.random()*randomImages.length)] ;
         const result = await pool.query(
-            `INSERT INTO users (username, email, password)
+            `INSERT INTO users (username, email, password , profil_img)
              VALUES ($1, $2, $3 , $4)
              RETURNING id, username, email`,
             [username, email, hashPassword , randomImage ]
