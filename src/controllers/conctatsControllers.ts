@@ -10,7 +10,7 @@ export const fetchContacts = async (req : Request , res : Response) : Promise<an
 
     try {
         const result = await pool.query(
-            `SELECT u.id AS contact_id , u.username, u.email 
+            `SELECT u.id AS contact_id , u.username, u.email , u.profil_img
                 FROM contacts c 
                 JOIN users u ON u.id = c.contact_id
                 WHERE c.user_id = $1 ORDER BY u.username ASC` , [userId]
@@ -22,8 +22,6 @@ export const fetchContacts = async (req : Request , res : Response) : Promise<an
         return res.status(500).json({error : 'Failed to fetch contacts'})
         
     }
-
-
 } 
 
 
@@ -54,4 +52,28 @@ export const addContact = async (req : Request , res : Response) : Promise<any> 
     } 
         
 
+}
+
+export const recentContacts = async (req : Request , res : Response) => {
+    let userId = req.user ;
+    if (req.user ) {
+        userId = req.user.id
+    }
+    const {contactEmail} = req.body ;
+    console.log(contactEmail);
+
+    try {
+        const result = pool.query(`SELECT 
+        u.id AS contact_id, u.username , u.email, u.profil_img
+        FROM contacts c 
+        JOIN users u ON u.id = contact_id
+        WHERE c.user_id = $1
+        ORDER BY c.created_at DESC LIMIT 8` , [userId]) ;
+
+        res.status(201).json((await result).rows) ;
+    } catch (error) {
+        console.error('Error fetching recent contact :' , error);
+        res.status(500).json({error : 'Failed to fetch recent contacts'}) ;
+    }
+    
 }
