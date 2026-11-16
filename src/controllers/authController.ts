@@ -6,7 +6,8 @@ import jwt from "jsonwebtoken";
 const randomImages = [
     'https://images.unsplash.com/photo-1741034495199-cf7fbb5c49b6?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D',
     'https://images.unsplash.com/photo-1740252117044-2af197eea287?q=80&w=580&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D',
-'' ,    'https://plus.unsplash.com/premium_photo-1776944945330-74899c4e37f5?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D'
+    'https://plus.unsplash.com/premium_photo-1776944945233-3f50a2cba564?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D',
+    'https://plus.unsplash.com/premium_photo-1776944945330-74899c4e37f5?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D'
 ];
 
 const SALT_ROUNDS = 10;
